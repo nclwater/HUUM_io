@@ -11,9 +11,9 @@ setuptools.setup(
     description="IO emthods for the Household Utility Usage Model",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/LeoTolstoi/huum_io/",
+    url="https://github.com/nclwater/HUUM_io/",
     project_urls={
-        "Bug Tracker": "https://gitlab.com/LeoTolstoi/huum_io/-/issues",
+        "Bug Tracker": "https://github.com/nclwater/HUUM_io/-/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
