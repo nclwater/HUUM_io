@@ -26,3 +26,5 @@ Licenced under the terms of the Apache License 2.0.
 - Review which fields are actually necessary and which ones are not. E.g. agents aren't really needed in a consumer unit.
 - Find a way to elegantly define variable length output time series.
 - Implement internal consistency and data checks, e.g. for duplicate item names within a node and similar.
+
+

@@ -57,15 +57,28 @@ class IOModelHUUM(object
         self.model = None  # Model data
 
     @classmethod
-    def load(cls, filename, force_modelroot: str = ''):
+    def load(cls,
+             filename,
+             force_modelroot: str = '',
+             add_modelroot: str = ''):
 
         if zipfile.is_zipfile(filename):
             cls = IOModelHUUM.load_zip(filename)
         else:
             cls = IOModelHUUM()
             cls.load_settings(filename)
+
+            if add_modelroot != '':
+                if cls.settings.dir_modelRoot is None:
+                    cls.settings.dir_modelRoot = add_modelroot
+                else:
+                    cls.settings.dir_modelRoot = add_modelroot + '/' + cls.settings.dir_modelRoot
+
+            if force_modelroot is None:
+                force_modelroot = ''
+
             cls.load_model(force_modelroot)
-        
+
         return cls
 
     @classmethod
@@ -105,16 +118,17 @@ class IOModelHUUM(object
             cls.settings = settings.IOSettings.from_fileobject(f_obj)
 
         # and the rest
-        cls.model = model.IOModel.from_zip(cls.settings.fn_model,
-                                           zfile=zf,
-                                           base_dir=f'{dir_top}/{cls.settings.dir_modelRoot}')
+        cls.model = model.IOModel.from_zip(
+            cls.settings.fn_model,
+            zfile=zf,
+            base_dir=f'{dir_top}/{cls.settings.dir_modelRoot}')
 
         return cls
 
     def load_settings(self, filename):
         self.settings = settings.IOSettings.load(filename)
 
-    def load_model(self, force_modelroot: str):
+    def load_model(self, force_modelroot: str, add_modelroot: str = ''):
 
         # sanity check
         if (self.settings is None):
